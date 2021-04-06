@@ -1,1 +1,1 @@
-from NetLogoDOE import NetLogoDOE
+from NetLogoDOE.NetLogoDOE import Gui

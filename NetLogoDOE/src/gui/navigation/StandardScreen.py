@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import ast
-from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
-from NetLogoDOE.src.gui.custom_components import title, question_mark
+from src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
+from src.gui.custom_components import title, question_mark
 
 
 class StandardScreen:

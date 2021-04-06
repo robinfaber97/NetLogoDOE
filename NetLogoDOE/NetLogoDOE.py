@@ -1,24 +1,24 @@
 import PySimpleGUI as sg
 
-from NetLogoDOE.src.util.error_window import show_error_window
+from src.util.error_window import show_error_window
 
-from NetLogoDOE.src.gui.navigation.MainScreen import MainScreen
-from NetLogoDOE.src.gui.navigation.ExperimentScreen import ExperimentScreen
-from NetLogoDOE.src.gui.navigation.StandardScreen import StandardScreen
-from NetLogoDOE.src.gui.navigation.ImportScreen import ImportScreen
-from NetLogoDOE.src.gui.navigation.RunScreen import RunScreen
-from NetLogoDOE.src.gui.navigation.ExperimentResultsScreen import ExperimentResultsScreen
-from NetLogoDOE.src.gui.navigation.StandardResultsScreen import StandardResultsScreen
-from NetLogoDOE.src.gui.plots.standard.StandardConfigTableScreen import StandardConfigTableScreen
-from NetLogoDOE.src.gui.plots.experiment.ExperimentConfigTableScreen import ExperimentConfigTableScreen
-from NetLogoDOE.src.gui.plots.experiment.ParallelCoordinatesScreen import ParallelCoordinatesScreen
-from NetLogoDOE.src.gui.plots.experiment.ScatterplotScreen import ScatterplotScreen
-from NetLogoDOE.src.gui.plots.experiment.HeatmapScreen import HeatmapScreen
-from NetLogoDOE.src.gui.plots.standard.TimeSeriesplotScreen import TimeSeriesplotScreen
-from NetLogoDOE.src.gui.plots.standard.BoxplotScreen import BoxplotScreen
-from NetLogoDOE.src.gui.plots.standard.ViolinplotScreen import ViolinplotScreen
-from NetLogoDOE.src.gui.plots.standard.HistogramScreen import HistogramScreen
-from NetLogoDOE.src.gui.plots.standard.DistributionplotScreen import DistributionplotScreen
+from src.gui.navigation.MainScreen import MainScreen
+from src.gui.navigation.ExperimentScreen import ExperimentScreen
+from src.gui.navigation.StandardScreen import StandardScreen
+from src.gui.navigation.ImportScreen import ImportScreen
+from src.gui.navigation.RunScreen import RunScreen
+from src.gui.navigation.ExperimentResultsScreen import ExperimentResultsScreen
+from src.gui.navigation.StandardResultsScreen import StandardResultsScreen
+from src.gui.plots.standard.StandardConfigTableScreen import StandardConfigTableScreen
+from src.gui.plots.experiment.ExperimentConfigTableScreen import ExperimentConfigTableScreen
+from src.gui.plots.experiment.ParallelCoordinatesScreen import ParallelCoordinatesScreen
+from src.gui.plots.experiment.ScatterplotScreen import ScatterplotScreen
+from src.gui.plots.experiment.HeatmapScreen import HeatmapScreen
+from src.gui.plots.standard.TimeSeriesplotScreen import TimeSeriesplotScreen
+from src.gui.plots.standard.BoxplotScreen import BoxplotScreen
+from src.gui.plots.standard.ViolinplotScreen import ViolinplotScreen
+from src.gui.plots.standard.HistogramScreen import HistogramScreen
+from src.gui.plots.standard.DistributionplotScreen import DistributionplotScreen
 
 
 class Gui:

@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import plotly.graph_objects as go
-from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
-from NetLogoDOE.src.gui.custom_components import title, question_mark, metric3_radio_buttons
+from src.util.data_processing.merge_standard_data import merge_data
+from src.gui.custom_components import title, question_mark, metric3_radio_buttons
 
 
 class HistogramScreen:

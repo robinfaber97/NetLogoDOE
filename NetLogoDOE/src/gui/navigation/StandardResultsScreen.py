@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from NetLogoDOE.src.gui.custom_components import title, question_mark
+from src.gui.custom_components import title, question_mark
 
 
 class StandardResultsScreen:

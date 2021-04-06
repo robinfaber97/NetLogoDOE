@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
-from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
+from src.util.data_processing.merge_standard_data import merge_data
 import plotly.figure_factory as ff
-from NetLogoDOE.src.gui.custom_components import title, question_mark, metric3_radio_buttons
+from src.gui.custom_components import title, question_mark, metric3_radio_buttons
 
 
 class DistributionplotScreen:

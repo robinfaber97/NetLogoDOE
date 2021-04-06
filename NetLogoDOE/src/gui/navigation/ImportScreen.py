@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import ast
 import pandas as pd
-from NetLogoDOE.src.gui.custom_components import title, explanation, question_mark
+from src.gui.custom_components import title, explanation, question_mark
 
 
 class ImportScreen:
