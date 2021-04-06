@@ -1,1 +1,2 @@
-__all__ = ['NetLogoDOE']
+from . import src
+from . import NetLogoDOE
