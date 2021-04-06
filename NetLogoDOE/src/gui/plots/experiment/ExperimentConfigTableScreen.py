@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from NetLogoDOE.src.gui.custom_components import title, configuration_parameter_text, configuration_value_text, \
+from src.gui.custom_components import title, configuration_parameter_text, configuration_value_text, \
     configuration_horizontal_line
 
 
