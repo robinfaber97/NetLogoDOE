@@ -1,10 +1,10 @@
 import PySimpleGUI as sg
 import ast
-from src.util.Sampler import MonteCarloSampler, LatinHypercubeSampler, FullFactorialSampler, FASTSampler, \
+from NetLogoDOE.src.util.Sampler import MonteCarloSampler, LatinHypercubeSampler, FullFactorialSampler, FASTSampler, \
     FiniteDifferenceSampler, SaltelliSampler, SobolSampler
-from src.util.config_dicts.get_experiment_dict import get_experiment_config_dictionary
-from src.gui.custom_components import title
-from src.gui.custom_components import question_mark
+from NetLogoDOE.src.util.config_dicts.get_experiment_dict import get_experiment_config_dictionary
+from NetLogoDOE.src.gui.custom_components import title
+from NetLogoDOE.src.gui.custom_components import question_mark
 
 
 class ExperimentScreen:

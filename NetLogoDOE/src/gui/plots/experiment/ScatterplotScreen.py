@@ -5,8 +5,8 @@ from plotly.subplots import make_subplots
 import statsmodels.api as sm
 import re
 import math
-from src.util.data_processing.merge_experiment_data import merge_data
-from src.gui.custom_components import title, question_mark, metric4_radio_buttons
+from NetLogoDOE.src.util.data_processing.merge_experiment_data import merge_data
+from NetLogoDOE.src.gui.custom_components import title, question_mark, metric4_radio_buttons
 
 
 class ScatterplotScreen:
