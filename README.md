@@ -16,10 +16,6 @@ pip install NetLogoDOE
 
 ## Usage
 Make a Python file (.py), copy the following code into it and then run it. This will launch the GUI and allow you to use all functionalities.
-IMPORTANT: If your operating system is Linux, the Gui() call requires two parameters with your NetLogo version and location.
-
-The netlogo_version parameter has to be one of: '5', '6.0', '6.1', '6.2'.  
-The netlogo_home parameter needs to be a valid file path to wherever on your PC your NetLogo installation is located.
 
 #### Windows
 ```
@@ -28,6 +24,11 @@ Gui()
 ```
 
 #### Linux
+IMPORTANT: If your operating system is Linux, the Gui() call requires two parameters with your NetLogo version and location.
+
+The netlogo_version parameter has to be one of: '5', '6.0', '6.1', '6.2'.  
+The netlogo_home parameter needs to be a valid file path to wherever on your PC your NetLogo installation is located.
+
 ```
 from NetLogoDOE.NetLogoDOE import Gui
 Gui(netlogo_version=??, netlogo_home=path_to_your_netlogo_installation)
