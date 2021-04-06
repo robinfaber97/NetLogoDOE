@@ -8,7 +8,7 @@ setup(
   author = 'Robin Faber',
   author_email = 'r.j.faber@student.tudelft.nl',
   url = 'https://github.com/robinfaber97/NetLogoDOE',
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    # I explain this later on
+  download_url = 'https://github.com/robinfaber97/NetLogoDOE/archive/refs/tags/0.1.tar.gz',
   keywords = ['NetLogo', 'Design of experiments', 'Model design', 'Agent-based simulation', 'Data visualisation'],
   install_requires=[
           'PySimpleGUI',
