@@ -1,1 +1,1 @@
-from NetLogoDOE.NetLogoDOE import Gui
+__all__ = ['NetLogoDOE']
