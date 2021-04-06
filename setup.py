@@ -1,16 +1,15 @@
 from setuptools import setup, find_packages
 setup(
   name = 'NetLogoDOE',
-  packages = find_packages(where='NetLogoDOE'),
-  package_dir = {"":"NetLogoDOE"},
+  packages = find_packages(),
   include_package_data=True,
-  version = '0.1.14',
+  version = '0.1.15',
   license='MIT',
   description = 'NetLogoDOE provides a GUI that allows for easy design, execution and analysis of NetLogo experiments',
   author = 'Robin Faber',
   author_email = 'r.j.faber@student.tudelft.nl',
   url = 'https://github.com/robinfaber97/NetLogoDOE',
-  download_url = 'https://github.com/robinfaber97/NetLogoDOE/archive/refs/tags/0.1.14.tar.gz',
+  download_url = 'https://github.com/robinfaber97/NetLogoDOE/archive/refs/tags/0.1.15.tar.gz',
   keywords = ['NetLogo', 'Design of experiments', 'Model design', 'Agent-based simulation', 'Data visualisation'],
   install_requires=[
           'PySimpleGUI',
