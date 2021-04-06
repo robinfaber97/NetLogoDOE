@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from src.util.data_processing.merge_standard_data import merge_data
+from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
 import plotly.graph_objects as go
 
 

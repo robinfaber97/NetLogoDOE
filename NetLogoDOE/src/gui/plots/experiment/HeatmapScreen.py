@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import plotly.express as px
-from src.util.data_processing.merge_experiment_data import merge_data
-from src.gui.custom_components import title, metric4_radio_buttons, question_mark
+from NetLogoDOE.src.util.data_processing.merge_experiment_data import merge_data
+from NetLogoDOE.src.gui.custom_components import title, metric4_radio_buttons, question_mark
 
 
 class HeatmapScreen:
