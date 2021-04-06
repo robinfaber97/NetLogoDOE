@@ -1,20 +1,3 @@
-# NetLogoDOE
-NetLogoDOE is a graphical user interface that allows for easy design, execution and analysis of NetLogo experiments. 
-## Features
-
-- Design NetLogo experiments
-- Run NetLogo models with specified configurations
-- Save and import experiments configurations
-- Visualise results with 8 different graph types
-- Save and import experiment results
-
-## Installation
-
-```
-pip install NetLogoDOE
-```
-
-## License
 MIT License
 
 Copyright (c) 2021 Robin Faber
