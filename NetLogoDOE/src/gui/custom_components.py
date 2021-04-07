@@ -25,9 +25,9 @@ def configuration_horizontal_line():
     return sg.Text('---------------------------------------------------------------------------', pad=(0, 0))
 
 
-def question_mark(tooltip, padding=((5, 0), (20, 0))):
-    #return sg.Text('Help', tooltip=tooltip, pad=padding)
-    return sg.Image(filename='NetLogoDOE\\src\\gui\\images\\q_mark.png', tooltip=tooltip, pad=padding)
+def question_mark_button(key, padding=None):
+    return sg.Button(' ? ', font=('', 10, 'bold'), key=key, pad=padding)
+    #return sg.Button(key=key, pad=padding, image_filename='..\\src\\gui\\images\\q_mark1.png')
 
 
 def metric3_radio_buttons(prefix):

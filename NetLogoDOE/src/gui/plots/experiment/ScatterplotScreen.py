@@ -5,19 +5,20 @@ from plotly.subplots import make_subplots
 import statsmodels.api as sm
 import re
 import math
-from NetLogoDOE.src.util.data_processing.merge_experiment_data import merge_data
-from NetLogoDOE.src.gui.custom_components import title, question_mark, metric4_radio_buttons
+from src.util.data_processing.merge_experiment_data import merge_data
+from src.gui.custom_components import title, metric4_radio_buttons, question_mark_button
+from src.gui.custom_windows import show_help_window
+from src.gui.help_dictionary import help_text
 
 
 class ScatterplotScreen:
 
     def __init__(self):
-        question_mark_padding = ((0, 0), (0, 0))
         self.layout = [[title('Scatterplot')],
-                       [sg.Text('Variable combinations to plot:')],
+                       [question_mark_button('scatterplot_variable_help_button'), sg.Text('Variable combinations to plot:')],
                        [sg.Multiline('"sheep-reproduce" "count sheep"', key='scatterplot_variable_input')],
                        [sg.Text('Explain the format: "x-variable" "y-variable"')],
-                       [sg.Text('Metric:'), question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('scatterplot_4metric_help_button'), sg.Text('Metric:')],
                        metric4_radio_buttons('scatter'),
                        [sg.Button('Generate', key='scatterplot_generate_button')],
                        [sg.Button('Back', key='scatterplot_back_button')]]
@@ -35,6 +36,12 @@ class ScatterplotScreen:
         if event == 'scatterplot_back_button':
             window['scatterplot_panel'].update(visible=False)
             window['experiment_result_panel'].update(visible=True)
+
+        # Help events
+        if event == 'scatterplot_4metric_help_button':
+            show_help_window(help_text['4_metric'], location=window.CurrentLocation())
+        if event == 'scatterplot_variable_help_button':
+            show_help_window(help_text['scatterplot_variables'], location=window.CurrentLocation())
 
     def generate_scatter_plot(self, values, window):
         exp = self.results[0]

@@ -1,8 +1,9 @@
 import PySimpleGUI as sg
 import ast
-from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
-from NetLogoDOE.src.gui.custom_components import title, question_mark
-
+from src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
+from src.gui.custom_components import title, question_mark_button
+from src.gui.help_dictionary import help_text
+from src.gui.custom_windows import show_help_window
 
 class StandardScreen:
 
@@ -17,25 +18,25 @@ class StandardScreen:
                         sg.Input(key='standard_model_dummy_import', enable_events=True, visible=False, size=(0, 0)),
                         sg.FileBrowse('Import model', file_types=[("NetLogo Files", "*.nlogo")],
                                       target='standard_model_dummy_import', key='standard_model_import_button')],
-                       [sg.Text('Set variables as follows:'),
-                        question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('standard_value_help_button'),
+                        sg.Text('Set variables as follows:')],
                        [sg.Multiline(key='standard_value_input')],
                        [sg.Text('Explain the format: variable-name variable-value')],
-                       [sg.Text('Number of repetitions:'),
-                        question_mark('Help', padding=question_mark_padding),
+                       [question_mark_button('standard_repetition_help_button'),
+                        sg.Text('Number of repetitions:'),
                         sg.Input('10', key='standard_repetition_input')],
-                       [sg.Text('Maximum number of ticks per run:'),
-                        question_mark('Help', padding=question_mark_padding),
+                       [question_mark_button('standard_tick_help_button'),
+                        sg.Text('Maximum number of ticks per run:'),
                         sg.Input('100', key='standard_tick_input')],
-                       [sg.Text('Measure runs using these reporters:'),
-                        question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('standard_reporter_help_button'),
+                        sg.Text('Measure runs using these reporters:')],
                        [sg.Multiline(key='standard_reporter_input')],
                        [sg.Text('Only input a single reporter on each line')],
-                       [sg.Text('Setup commands:'),
-                        question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('standard_setup_help_button'),
+                        sg.Text('Setup commands:')],
                        [sg.Multiline('setup', key='standard_setup_input')],
-                       [sg.Text('Number of parallel executors:'),
-                        question_mark('Help', padding=question_mark_padding),
+                       [question_mark_button('standard_process_help_button'),
+                        sg.Text('Number of parallel executors:'),
                         sg.Input('2', key='standard_process_input')],
                        [sg.Button('Run', key="standard_run_button")],
                        [sg.Button('Back', key="standard_back_button"),
@@ -64,6 +65,20 @@ class StandardScreen:
         if event == 'standard_back_button':
             window['main_panel'].update(visible=True)
             window['standard_panel'].update(visible=False)
+
+        # Help events
+        if event == 'standard_value_help_button':
+            show_help_window(help_text['standard_variables'], location=window.CurrentLocation())
+        if event == 'standard_repetition_help_button':
+            show_help_window(help_text['run_repetitions'], location=window.CurrentLocation())
+        if event == 'standard_tick_help_button':
+            show_help_window(help_text['run_ticks'], location=window.CurrentLocation())
+        if event == 'standard_reporter_help_button':
+            show_help_window(help_text['run_reporters'], location=window.CurrentLocation())
+        if event == 'standard_setup_help_button':
+            show_help_window(help_text['run_setup'], location=window.CurrentLocation())
+        if event == 'standard_process_help_button':
+            show_help_window(help_text['run_processes'], location=window.CurrentLocation())
 
     def import_run(self, window, file_path):
         f = open(file_path, "r")

@@ -1,19 +1,20 @@
 import PySimpleGUI as sg
 import plotly.graph_objects as go
-from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
-from NetLogoDOE.src.gui.custom_components import title, question_mark, metric3_radio_buttons
+from src.util.data_processing.merge_standard_data import merge_data
+from src.gui.custom_components import title, metric3_radio_buttons, question_mark_button
+from src.gui.custom_windows import show_help_window
+from src.gui.help_dictionary import help_text
 
 
 class HistogramScreen:
 
     def __init__(self):
-        question_mark_padding = ((0, 0), (0, 0))
         self.layout = [[title('Histogram')],
                        [sg.Text('Graph Title: '), sg.Input('', key='histogram_title_input')],
-                       [sg.Text('Reporters to plot:'), question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('histogram_reporter_help_button'), sg.Text('Reporters to plot:')],
                        [sg.Multiline('', key='histogram_reporter_input')],
                        [sg.Text('Only input a single reporter on each line')],
-                       [sg.Text('Metric:'), question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('histogram_3metric_help_button'), sg.Text('Metric:')],
                        metric3_radio_buttons('histogram'),
                        [sg.Button('Generate', key='histogram_generate_button')],
                        [sg.Button('Back', key='histogram_back_button')]]
@@ -31,6 +32,12 @@ class HistogramScreen:
         if event == 'histogram_back_button':
             window['histogram_panel'].update(visible=False)
             window['standard_result_panel'].update(visible=True)
+
+        # Help events
+        if event == 'histogram_reporter_help_button':
+            show_help_window(help_text['standard_plot_reporters'], location=window.CurrentLocation())
+        if event == 'histogram_3metric_help_button':
+            show_help_window(help_text['3_metric'], location=window.CurrentLocation())
 
     def generate_histogram(self, values, window):
         reporters = self.format_reporters(values)

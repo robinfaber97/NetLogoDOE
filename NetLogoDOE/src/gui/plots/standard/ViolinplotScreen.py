@@ -1,7 +1,9 @@
 import PySimpleGUI as sg
 import plotly.graph_objects as go
-from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
-from NetLogoDOE.src.gui.custom_components import title
+from src.util.data_processing.merge_standard_data import merge_data
+from src.gui.custom_components import title, question_mark_button
+from src.gui.custom_windows import show_help_window
+from src.gui.help_dictionary import help_text
 
 
 class ViolinplotScreen:
@@ -9,7 +11,7 @@ class ViolinplotScreen:
     def __init__(self):
         self.layout = [[title('Violin plot')],
                        [sg.Text('Graph Title: '), sg.Input('', key='violinplot_title_input')],
-                       [sg.Text('Reporters to plot:')],
+                       [question_mark_button('violinplot_reporter_help_button'), sg.Text('Reporters to plot:')],
                        [sg.Multiline('count sheep', key='violinplot_reporter_input')],
                        [sg.Text('Only input a single reporter on each line')],
                        [sg.Button('Generate', key='violinplot_generate_button')],
@@ -28,6 +30,10 @@ class ViolinplotScreen:
         if event == 'violinplot_back_button':
             window['violinplot_panel'].update(visible=False)
             window['standard_result_panel'].update(visible=True)
+
+        # Help events
+        if event == 'violinplot_reporter_help_button':
+            show_help_window(help_text['standard_plot_reporters'], location=window.CurrentLocation())
 
     def generate_violinplot(self, values, window):
         reporters = self.format_reporters(values)

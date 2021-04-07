@@ -1,10 +1,12 @@
 import PySimpleGUI as sg
 import ast
-from NetLogoDOE.src.util.Sampler import MonteCarloSampler, LatinHypercubeSampler, FullFactorialSampler, FASTSampler, \
+from src.util.Sampler import MonteCarloSampler, LatinHypercubeSampler, FullFactorialSampler, FASTSampler, \
     FiniteDifferenceSampler, SaltelliSampler, SobolSampler
-from NetLogoDOE.src.util.config_dicts.get_experiment_dict import get_experiment_config_dictionary
-from NetLogoDOE.src.gui.custom_components import title
-from NetLogoDOE.src.gui.custom_components import question_mark
+from src.util.config_dicts.get_experiment_dict import get_experiment_config_dictionary
+from src.gui.custom_components import title, question_mark_button
+from src.gui.help_dictionary import help_text
+from src.gui.custom_windows import show_help_window
+
 
 
 class ExperimentScreen:
@@ -20,10 +22,10 @@ class ExperimentScreen:
                         sg.Input(key='experiment_model_dummy_import', enable_events=True, visible=False, size=(0, 0)),
                         sg.FileBrowse('Import model', file_types=[("NetLogo Files", "*.nlogo")],
                                       target='experiment_model_dummy_import', key='experiment_model_import_button')],
-                       [sg.Text('Vary variables as follows:'), question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('experiment_bound_input_help_button'), sg.Text('Vary variables as follows:')],
                        [sg.Multiline(key='experiment_bound_input')],
                        [sg.Text('Explain the format: variable-name lower-bound upper-bound')],
-                       [sg.Text('Sampling method:'), question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('experiment_sampling_help_button'), sg.Text('Sampling method:')],
                        [sg.Radio('Monte Carlo', 'experiment_sampler_radiogroup', key='sample_mc'),
                         sg.Radio('Latin Hypercube', 'experiment_sampler_radiogroup', key='sample_lhs'),
                         sg.Radio('Full Factorial', 'experiment_sampler_radiogroup', key='sample_ff'),
@@ -32,24 +34,18 @@ class ExperimentScreen:
                         #                         question_mark('Help', padding=question_mark_padding),
                         sg.Radio('Saltelli', 'experiment_sampler_radiogroup', key='sample_saltelli'),
                         sg.Radio('Sobol sequence', 'experiment_sampler_radiogroup', key='sample_ss')],
-                       [sg.Text('Number of scenarios:'),
-                        question_mark('Help', padding=question_mark_padding),
+                       [question_mark_button('experiment_scenario_help_button'), sg.Text('Number of scenarios:'),
                         sg.Input('10', key='experiment_scenario_input')],
-                       [sg.Text('Number of repetitions per scenario:'),
-                        question_mark('Help', padding=question_mark_padding),
+                       [question_mark_button('experiment_repetition_help_button'), sg.Text('Number of repetitions per scenario:'),
                         sg.Input('10', key='experiment_repetition_input')],
-                       [sg.Text('Maximum number of ticks per run:'),
-                        question_mark('Help', padding=question_mark_padding),
+                       [question_mark_button('experiment_tick_help_button'), sg.Text('Maximum number of ticks per run:'),
                         sg.Input('100', key='experiment_tick_input')],
-                       [sg.Text('Measure runs using these reporters:'),
-                        question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('experiment_reporter_help_button'), sg.Text('Measure runs using these reporters:')],
                        [sg.Multiline(key='experiment_reporter_input')],
                        [sg.Text('Only input a single reporter on each line')],
-                       [sg.Text('Setup commands:'),
-                        question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('experiment_setup_help_button'), sg.Text('Setup commands:')],
                        [sg.Multiline('setup', key='experiment_setup_input')],
-                       [sg.Text('Number of parallel executors:'),
-                        question_mark('Help', padding=question_mark_padding),
+                       [question_mark_button('experiment_process_help_button'), sg.Text('Number of parallel executors:'),
                         sg.Input('2', key='experiment_process_input')],
                        [sg.Button('Run', key="experiment_run_button")],
                        [sg.Button('Back', key="experiment_back_button"),
@@ -81,6 +77,24 @@ class ExperimentScreen:
         if event == 'experiment_back_button':
             window['main_panel'].update(visible=True)
             window['experiment_panel'].update(visible=False)
+
+        # Help events
+        if event == 'experiment_bound_input_help_button':
+            show_help_window(help_text['experiment_variables'], location=window.CurrentLocation())
+        if event == 'experiment_sampling_help_button':
+            show_help_window(help_text['experiment_sampling'], location=window.CurrentLocation())
+        if event == 'experiment_scenario_help_button':
+            show_help_window(help_text['experiment_scenarios'], location=window.CurrentLocation())
+        if event == 'experiment_repetition_help_button':
+            show_help_window(help_text['run_repetitions'], location=window.CurrentLocation())
+        if event == 'experiment_tick_help_button':
+            show_help_window(help_text['run_ticks'], location=window.CurrentLocation())
+        if event == 'experiment_reporter_help_button':
+            show_help_window(help_text['run_reporters'], location=window.CurrentLocation())
+        if event == 'experiment_setup_help_button':
+            show_help_window(help_text['run_setup'], location=window.CurrentLocation())
+        if event == 'experiment_process_help_button':
+            show_help_window(help_text['run_processes'], location=window.CurrentLocation())
 
     def construct_problem(self, values):
         num_vars, names, bounds = self.get_problem_values(values['experiment_bound_input'])

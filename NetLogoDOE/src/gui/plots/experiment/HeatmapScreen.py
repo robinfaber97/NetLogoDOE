@@ -1,17 +1,18 @@
 import PySimpleGUI as sg
 import plotly.express as px
-from NetLogoDOE.src.util.data_processing.merge_experiment_data import merge_data
-from NetLogoDOE.src.gui.custom_components import title, metric4_radio_buttons, question_mark
+from src.util.data_processing.merge_experiment_data import merge_data
+from src.gui.custom_components import title, metric4_radio_buttons, question_mark_button
+from src.gui.custom_windows import show_help_window
+from src.gui.help_dictionary import help_text
 
 
 class HeatmapScreen:
 
     def __init__(self):
-        question_mark_padding = ((0, 0), (0, 0))
         self.layout = [[title('Heatmap')],
                        [sg.Text('Graph Title:'), sg.Input(key='heatmap_title_input')],
                        [sg.Text('Color scale:'), sg.Input('viridis', key='heatmap_color_input')],
-                       [sg.Text('Metric:'), question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('heatmap_4metric_help_button'), sg.Text('Metric:')],
                        metric4_radio_buttons('heatmap'),
                        [sg.Button('Generate', key='heatmap_generate_button')],
                        [sg.Button('Back', key='heatmap_back_button')]]
@@ -25,6 +26,10 @@ class HeatmapScreen:
         if event == 'heatmap_back_button':
             window['heatmap_panel'].update(visible=False)
             window['experiment_result_panel'].update(visible=True)
+
+        # Help events
+        if event == 'heatmap_4metric_help_button':
+            show_help_window(help_text['4_metric'], location=window.CurrentLocation())
 
     def generate_heatmap(self, values, window):
         exp = self.results[0]

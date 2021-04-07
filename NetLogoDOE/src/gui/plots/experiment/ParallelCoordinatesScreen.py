@@ -1,18 +1,19 @@
 import PySimpleGUI as sg
 import plotly.express as px
-from NetLogoDOE.src.util.data_processing.merge_experiment_data import merge_data
-from NetLogoDOE.src.gui.custom_components import title, question_mark, metric4_radio_buttons
+from src.util.data_processing.merge_experiment_data import merge_data
+from src.gui.custom_components import title, metric4_radio_buttons, question_mark_button
+from src.gui.custom_windows import show_help_window
+from src.gui.help_dictionary import help_text
 
 
 class ParallelCoordinatesScreen:
 
     def __init__(self):
-        question_mark_padding = ((0, 0), (0, 0))
         self.layout = [[title('Parallel Coordinates')],
                        [sg.Text('Graph Title:'), sg.Input(key='parcoords_title_input')],
                        [sg.Text('Line Color:'), sg.Input('Blue', key='parcoords_line_color_input')],
                        [sg.Text('Background Color:'), sg.Input('White', key='parcoords_background_color_input')],
-                       [sg.Text('Metric:'),  question_mark('Help', padding=question_mark_padding)],
+                       [question_mark_button('parcoords_4metric_help_button'), sg.Text('Metric:')],
                        metric4_radio_buttons('parcoords'),
                        [sg.Button('Generate', key='parcoords_generate_button')],
                        [sg.Button('Back', key='parcoords_back_button')]]
@@ -26,6 +27,10 @@ class ParallelCoordinatesScreen:
         if event == 'parcoords_back_button':
             window['parcoords_panel'].update(visible=False)
             window['experiment_result_panel'].update(visible=True)
+
+        # Help events
+        if event == 'parcoords_4metric_help_button':
+            show_help_window(help_text['4_metric'], location=window.CurrentLocation())
 
     def generate_parallel_coordinates(self, values, window):
         exp = self.results[0]
