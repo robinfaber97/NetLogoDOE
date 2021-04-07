@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
-from src.gui.custom_components import header, explanation, question_mark_button
-from src.gui.help_dictionary import help_text
-from src.gui.custom_windows import show_help_window
+from NetLogoDOE.src.gui.custom_components import header, explanation, question_mark_button
+from NetLogoDOE.src.gui.help_dictionary import help_text
+from NetLogoDOE.src.gui.custom_windows import show_help_window
 
 
 class MainScreen:

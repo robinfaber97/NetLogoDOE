@@ -1,14 +1,16 @@
 import PySimpleGUI as sg
 from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
 import plotly.graph_objects as go
-
+from NetLogoDOE.src.gui.custom_components import title, question_mark_button
+from NetLogoDOE.src.gui.custom_windows import show_help_window
+from NetLogoDOE.src.gui.help_dictionary import help_text
 
 class BoxplotScreen:
 
     def __init__(self):
-        self.layout = [[sg.Text('Boxplot')],
+        self.layout = [[title('Boxplot')],
                        [sg.Text('Graph Title: '), sg.Input('', key='boxplot_title_input')],
-                       [sg.Text('Reporters to plot:')],
+                       [question_mark_button('boxplot_reporter_help_button'), sg.Text('Reporters to plot:')],
                        [sg.Multiline('count sheep', key='boxplot_reporter_input')],
                        [sg.Text('Only input a single reporter on each line')],
                        [sg.Button('Generate', key='boxplot_generate_button')],
@@ -27,6 +29,10 @@ class BoxplotScreen:
         if event == 'boxplot_back_button':
             window['boxplot_panel'].update(visible=False)
             window['standard_result_panel'].update(visible=True)
+
+        # Help events
+        if event == 'boxplot_reporter_help_button':
+            show_help_window(help_text['standard_plot_reporters'], location=window.CurrentLocation())
 
     def generate_boxplot(self, values, window):
         reporters = self.format_reporters(values)

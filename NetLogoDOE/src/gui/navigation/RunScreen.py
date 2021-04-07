@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
-from src.util.connectors.experimental_connector import run_experiments
-from src.util.connectors.standard_connector import run_standard
-from src.util.Runner import Runner
-from src.util.config_dicts.get_experiment_dict import get_experiment_config_dictionary
-from src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
+from NetLogoDOE.src.util.connectors.experimental_connector import run_experiments
+from NetLogoDOE.src.util.connectors.standard_connector import run_standard
+from NetLogoDOE.src.util.Runner import Runner
+from NetLogoDOE.src.util.config_dicts.get_experiment_dict import get_experiment_config_dictionary
+from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
 import pandas as pd
 
 

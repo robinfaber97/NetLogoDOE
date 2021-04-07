@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
 import plotly.express as px
-from src.util.data_processing.merge_experiment_data import merge_data
-from src.gui.custom_components import title, metric4_radio_buttons, question_mark_button
-from src.gui.custom_windows import show_help_window
-from src.gui.help_dictionary import help_text
+from NetLogoDOE.src.util.data_processing.merge_experiment_data import merge_data
+from NetLogoDOE.src.gui.custom_components import title, metric4_radio_buttons, question_mark_button
+from NetLogoDOE.src.gui.custom_windows import show_help_window
+from NetLogoDOE.src.gui.help_dictionary import help_text
 
 
 class ParallelCoordinatesScreen:
