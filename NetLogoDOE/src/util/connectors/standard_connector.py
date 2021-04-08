@@ -1,5 +1,6 @@
-import pyNetLogo as pnl
 import math
+
+import pyNetLogo as pnl
 from pyNetLogo.core import NetLogoException
 
 

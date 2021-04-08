@@ -1,7 +1,8 @@
 import PySimpleGUI as sg
-from NetLogoDOE.src.gui.custom_components import header, explanation, question_mark_button
-from NetLogoDOE.src.gui.help_dictionary import help_text
+
+from NetLogoDOE.src.gui.custom_components import header, question_mark_button
 from NetLogoDOE.src.gui.custom_windows import show_help_window
+from NetLogoDOE.src.gui.help_dictionary import help_text
 
 
 class MainScreen:
@@ -12,13 +13,10 @@ class MainScreen:
         self.layout = [[header('NetLogoDOE')],
                        [sg.Button('Experimental runs', key='main_experiment_button', size=button_size, pad=button_pad),
                         question_mark_button('main_experiment_help_button', padding=button_pad)],
-                       [explanation('whatever needs ot be said')],
                        [sg.Button('Standard runs', key='main_standard_button', size=button_size, pad=button_pad),
                         question_mark_button('main_standard_help_button', padding=button_pad)],
-                       [explanation('whatever needs ot be said')],
                        [sg.Button('Import results', key='main_import_button', size=button_size, pad=button_pad),
                         question_mark_button('main_import_help_button', padding=button_pad)],
-                       [explanation('whatever needs ot be said')],
                        [sg.Button('Close', key='main_close_button', pad=button_pad)]]
 
     def check_events(self, event, values, window):

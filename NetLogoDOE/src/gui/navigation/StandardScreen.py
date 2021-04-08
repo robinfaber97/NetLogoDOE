@@ -1,9 +1,12 @@
-import PySimpleGUI as sg
 import ast
-from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
+
+import PySimpleGUI as sg
+
 from NetLogoDOE.src.gui.custom_components import title, question_mark_button
-from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.gui.custom_windows import show_help_window
+from NetLogoDOE.src.gui.help_dictionary import help_text
+from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
+
 
 class StandardScreen:
 
@@ -70,7 +73,7 @@ class StandardScreen:
         if event == 'standard_value_help_button':
             show_help_window(help_text['standard_variables'], location=window.CurrentLocation())
         if event == 'standard_repetition_help_button':
-            show_help_window(help_text['run_repetitions'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_repetitions'], location=window.CurrentLocation())
         if event == 'standard_tick_help_button':
             show_help_window(help_text['run_ticks'], location=window.CurrentLocation())
         if event == 'standard_reporter_help_button':

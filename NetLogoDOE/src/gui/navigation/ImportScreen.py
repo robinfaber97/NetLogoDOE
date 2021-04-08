@@ -1,7 +1,9 @@
-import PySimpleGUI as sg
 import ast
+
+import PySimpleGUI as sg
 import pandas as pd
-from NetLogoDOE.src.gui.custom_components import title, explanation, question_mark_button
+
+from NetLogoDOE.src.gui.custom_components import title, question_mark_button
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
 
@@ -17,20 +19,17 @@ class ImportScreen:
                                       target='import_dummy_experiment_results',
                                       key='import_experiment_results_button', size=button_size, pad=button_pad),
                         question_mark_button('import_experiment_results_help_button', padding=button_pad)],
-                       [explanation('whatever needs ot be said')],
                        [sg.Input(key='import_dummy_standard_results', enable_events=True, visible=False, size=(0, 0)),
                         sg.FileBrowse('Import standard results', file_types=[("Text Files", "*.txt")],
                                       target='import_dummy_standard_results',
                                       key='import_standard_results_button', size=button_size, pad=button_pad),
                         question_mark_button('import_standard_results_help_button', padding=button_pad)],
-                       [explanation('whatever needs ot be said')],
                        [sg.Input(key='import_dummy_behaviorspace_results', enable_events=True, visible=False,
                                  size=(0, 0)),
                         sg.FileBrowse('Import BehaviorSpace results', file_types=[("Text Files", "*.txt")],
                                       target='import_dummy_behaviorspace_results',
                                       key='import_behaviorspace_results_button', size=button_size, pad=button_pad),
                         question_mark_button('import_behaviorspace_results_help_button', padding=button_pad)],
-                       [explanation('whatever needs ot be said')],
                        [sg.Button('Back', key='import_back_button', pad=button_pad)]
                        ]
 

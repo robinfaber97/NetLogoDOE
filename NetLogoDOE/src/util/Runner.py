@@ -1,6 +1,5 @@
 import multiprocessing
 import traceback
-import pyNetLogo as pnl
 
 
 class Process(multiprocessing.Process):

@@ -27,7 +27,6 @@ def configuration_horizontal_line():
 
 def question_mark_button(key, padding=None):
     return sg.Button(' ? ', font=('', 10, 'bold'), key=key, pad=padding)
-    #return sg.Button(key=key, pad=padding, image_filename='..\\src\\gui\\images\\q_mark1.png')
 
 
 def metric3_radio_buttons(prefix):

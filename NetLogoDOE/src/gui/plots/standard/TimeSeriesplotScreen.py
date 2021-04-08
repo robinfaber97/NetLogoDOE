@@ -1,12 +1,13 @@
 import PySimpleGUI as sg
-import plotly.graph_objects as go
-import plotly.express as px
-from plotly.colors import hex_to_rgb
 import numpy as np
-from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.colors import hex_to_rgb
+
 from NetLogoDOE.src.gui.custom_components import title, question_mark_button, metric3_radio_buttons
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
+from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
 
 
 class TimeSeriesplotScreen:

@@ -1,9 +1,9 @@
-from abc import abstractmethod
-import numpy as np
 import math
+from abc import abstractmethod
 
-from pyDOE2 import fullfact
+import numpy as np
 from SALib.sample import latin, fast_sampler, finite_diff, saltelli, sobol_sequence
+from pyDOE2 import fullfact
 
 
 class AbstractSampler(object):

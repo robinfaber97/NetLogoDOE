@@ -1,12 +1,13 @@
-import PySimpleGUI as sg
 import ast
+
+import PySimpleGUI as sg
+
+from NetLogoDOE.src.gui.custom_components import title, question_mark_button
+from NetLogoDOE.src.gui.custom_windows import show_help_window
+from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.util.Sampler import MonteCarloSampler, LatinHypercubeSampler, FullFactorialSampler, FASTSampler, \
     FiniteDifferenceSampler, SaltelliSampler, SobolSampler
 from NetLogoDOE.src.util.config_dicts.get_experiment_dict import get_experiment_config_dictionary
-from NetLogoDOE.src.gui.custom_components import title, question_mark_button
-from NetLogoDOE.src.gui.help_dictionary import help_text
-from NetLogoDOE.src.gui.custom_windows import show_help_window
-
 
 
 class ExperimentScreen:
@@ -86,7 +87,7 @@ class ExperimentScreen:
         if event == 'experiment_scenario_help_button':
             show_help_window(help_text['experiment_scenarios'], location=window.CurrentLocation())
         if event == 'experiment_repetition_help_button':
-            show_help_window(help_text['run_repetitions'], location=window.CurrentLocation())
+            show_help_window(help_text['experiment_repetitions'], location=window.CurrentLocation())
         if event == 'experiment_tick_help_button':
             show_help_window(help_text['run_ticks'], location=window.CurrentLocation())
         if event == 'experiment_reporter_help_button':
