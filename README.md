@@ -20,7 +20,9 @@ Make a Python file (.py), copy the following code into it and then run it. This 
 #### Windows
 ```
 from NetLogoDOE.NetLogoDOE import Gui
-Gui()
+
+if __name__ == "__main__":
+  Gui()
 ```
 
 #### Linux
@@ -31,7 +33,9 @@ The netlogo_home parameter needs to be a valid file path to wherever on your PC 
 
 ```
 from NetLogoDOE.NetLogoDOE import Gui
-Gui(netlogo_version=??, netlogo_home=path_to_your_netlogo_installation)
+
+if __name__ == "__main__":
+  Gui(netlogo_version=??, netlogo_home=path_to_your_netlogo_installation)
 ```
 
 ## License
