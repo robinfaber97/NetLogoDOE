@@ -19,7 +19,7 @@ Make a Python file (.py), copy the following code into it and then run it. This 
 
 #### Windows
 ```
-from NetLogoDOE.NetLogoDOE import Gui
+from NetLogoDOE.Gui import Gui
 
 if __name__ == "__main__":
   Gui()
@@ -32,7 +32,7 @@ The netlogo_version parameter has to be one of: '5', '6.0', '6.1', '6.2'.
 The netlogo_home parameter needs to be a valid file path to wherever on your PC your NetLogo installation is located.
 
 ```
-from NetLogoDOE.NetLogoDOE import Gui
+from NetLogoDOE.Gui import Gui
 
 if __name__ == "__main__":
   Gui(netlogo_version=??, netlogo_home=path_to_your_netlogo_installation)
