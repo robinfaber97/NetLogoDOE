@@ -30,23 +30,20 @@ def run_standard(child_conn, values, repetitions, netlogo_version, netlogo_home)
         return
 
     try:
-        variable_dict = get_variable_dictionary(values['standard_value_input'])
+        param_values = get_variable_dictionary(values['standard_value_input'])
     except (ValueError, IndexError):
         child_conn.send(get_failure_message('Error in input: Invalid parameter input. Please '
                                             'make sure the input uses the correct format.'))
         return
 
-    for key in variable_dict.keys():
-        if key == 'random-seed':
-            netlogo.command(f'random-seed {variable_dict[key]}')
-        else:
-            try:
-                netlogo.command(f'set {key} {variable_dict[key]}')
-            except NetLogoException:
-                child_conn.send(get_failure_message('Error in input: Invalid parameter input. Please '
-                                                    'make sure all variable names and their values are correct.'))
-                netlogo.kill_workspace()
-                return
+    for key in param_values.keys():
+        try:
+            netlogo.command(f'set {key} {param_values[key]}')
+        except NetLogoException:
+            child_conn.send(get_failure_message('Error in input: Invalid parameter input. Please '
+                                                'make sure all variable names and their values are correct.'))
+            netlogo.kill_workspace()
+            return
 
     for run in range(repetitions):
         setup_commands = split_user_input(values['standard_setup_input'])
@@ -79,7 +76,7 @@ def run_standard(child_conn, values, repetitions, netlogo_version, netlogo_home)
 
     netlogo.kill_workspace()
 
-    results = variable_dict, outcomes
+    results = param_values, outcomes
     child_conn.send({'Progress': steps, 'Results': results})
 
 
@@ -90,12 +87,11 @@ def split_user_input(input):
     return mapped_rows
 
 
-
 def get_variable_dictionary(var_values):
     rows = var_values.split('\n')
     rows = list(filter(('').__ne__, rows))
     stripped_rows = list(map(lambda x: x.strip().split(' '), rows))
-    return {x[0]: int(x[1]) for x in stripped_rows}
+    return {x[0]: x[1] for x in stripped_rows}
 
 
 def get_failure_message(msg):

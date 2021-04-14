@@ -2,8 +2,8 @@ def get_experiment_config_dictionary(values):
     experiment_dict = {}
     experiment_dict['Experiment Name'] = values['experiment_name_input']
     experiment_dict['Model file'] = values['experiment_model_input']
-    bounds = list(filter(''.__ne__, values['experiment_bound_input'].split('\n')))
-    experiment_dict['Variable bounds'] = list(map(lambda x: x.strip(), bounds))
+    bounds = list(filter(''.__ne__, values['experiment_parameter_input'].split('\n')))
+    experiment_dict['Parameter values'] = list(map(lambda x: x.strip(), bounds))
     experiment_dict['Number of scenarios'] = values['experiment_scenario_input']
     experiment_dict['Repetitions'] = values['experiment_repetition_input']
     experiment_dict['Ticks per run'] = values['experiment_tick_input']

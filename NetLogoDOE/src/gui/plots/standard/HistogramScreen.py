@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import plotly.graph_objects as go
 
-from NetLogoDOE.src.gui.custom_components import title, metric3_radio_buttons, question_mark_button
+from NetLogoDOE.src.gui.custom_components import title, metric3_radio_buttons, question_mark_button, explanation
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
@@ -11,10 +11,10 @@ class HistogramScreen:
 
     def __init__(self):
         self.layout = [[title('Histogram')],
-                       [sg.Text('Graph Title: '), sg.Input('', key='histogram_title_input')],
+                       [sg.Text('Graph Title: '), sg.Input(key='histogram_title_input')],
                        [question_mark_button('histogram_reporter_help_button'), sg.Text('Reporters to plot:')],
                        [sg.Multiline('', key='histogram_reporter_input')],
-                       [sg.Text('Only input a single reporter on each line')],
+                       [explanation('If this field is left empty, all reporters will be plotted.')],
                        [question_mark_button('histogram_3metric_help_button'), sg.Text('Metric:')],
                        metric3_radio_buttons('histogram'),
                        [sg.Button('Generate', key='histogram_generate_button')],
@@ -25,10 +25,6 @@ class HistogramScreen:
         if event == 'standard_write_results_event':
             self.results = values['standard_write_results_event']
         if event == 'histogram_generate_button':
-            valid, error_message = self.validate_user_input(values)
-            if not valid:
-                window.write_event_value('show_error_window', error_message)
-                return
             self.generate_histogram(values, window)
         if event == 'histogram_back_button':
             window['histogram_panel'].update(visible=False)
@@ -36,9 +32,13 @@ class HistogramScreen:
 
         # Help events
         if event == 'histogram_reporter_help_button':
-            show_help_window(help_text['standard_plot_reporters'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_plot_reporters'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'histogram_3metric_help_button':
-            show_help_window(help_text['3_metric'], location=window.CurrentLocation())
+            show_help_window(help_text['3_metric'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
 
     def generate_histogram(self, values, window):
         reporters = self.format_reporters(values)
@@ -68,13 +68,8 @@ class HistogramScreen:
         return 1
 
     def format_reporters(self, values):
+        if values['histogram_reporter_input'] == '\n':
+            return list(self.results[1].keys())
         reporters = list(filter(('').__ne__, values['histogram_reporter_input'].split('\n')))
         reporters = list(map(lambda x: x.strip(), reporters))
         return reporters
-
-    def validate_user_input(self, values):
-        if values['histogram_reporter_input'] == '\n':
-            return False, 'Error in input: One or more fields are empty. ' \
-                          'Please make sure all options are filled out.'
-
-        return True, ''

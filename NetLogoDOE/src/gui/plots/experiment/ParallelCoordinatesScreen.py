@@ -31,7 +31,9 @@ class ParallelCoordinatesScreen:
 
         # Help events
         if event == 'parcoords_4metric_help_button':
-            show_help_window(help_text['4_metric'], location=window.CurrentLocation())
+            show_help_window(help_text['4_metric'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
 
     def generate_parallel_coordinates(self, values, window):
         exp = self.results[0]

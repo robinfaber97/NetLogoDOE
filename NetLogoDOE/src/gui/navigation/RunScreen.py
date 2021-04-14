@@ -26,9 +26,11 @@ class RunScreen:
             exp_per_process = [len(experiments) // process_amount + (1 if x < len(experiments) % process_amount else 0)
                                 for x in range(process_amount)]
             frames = [experiments[i:i + exp_per_process[i]] for i in range(0, len(exp_per_process))]
+            static_parameter_values = values['experiment_run_signal'][2]
 
             for i in range(process_amount):
-                runner = Runner(run_experiments, (values, problem, frames[i], self.netlogo_version, self.netlogo_home))
+                runner = Runner(run_experiments, (values, problem, frames[i], static_parameter_values,
+                                                  self.netlogo_version, self.netlogo_home))
                 runner_list.append(runner)
                 runner.run()
 
@@ -53,7 +55,7 @@ class RunScreen:
 
             data = self.merge_experiment_data(results, problem['names'])
             config = self.get_experiment_config(values)
-            window.write_event_value('experiment_write_results_event', data + (config,))
+            window.write_event_value('experiment_write_results_event', data + (config, ))
             window['experiment_result_panel'].update(visible=True)
             window['run_panel'].update(visible=False)
             window['run_progressbar'].update_bar(0)

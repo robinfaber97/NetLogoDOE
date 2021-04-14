@@ -46,11 +46,17 @@ class ImportScreen:
 
         # Help events
         if event == 'import_experiment_results_help_button':
-            show_help_window(help_text['import_experiment'], location=window.CurrentLocation())
+            show_help_window(help_text['import_experiment'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'import_standard_results_help_button':
-            show_help_window(help_text['import_standard'], location=window.CurrentLocation())
+            show_help_window(help_text['import_standard'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'import_behaviorspace_results_help_button':
-            show_help_window(help_text['import_behaviorspace'], location=window.CurrentLocation())
+            show_help_window(help_text['import_behaviorspace'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
 
 
     def import_experiment_results(self, file_path, window):

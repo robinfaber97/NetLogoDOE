@@ -14,7 +14,7 @@ class StandardConfigTableScreen:
                        [configuration_parameter_text('Model file:'),
                         configuration_value_text('', 'standard_configtable_model_text')],
                        [configuration_horizontal_line()],
-                       [configuration_parameter_text('Parameter bounds:'),
+                       [configuration_parameter_text('Parameter values:'),
                         configuration_value_text('', 'standard_configtable_variable_text')],
                        [configuration_horizontal_line()],
                        [configuration_parameter_text('Repetitions:'),

@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import plotly.figure_factory as ff
 
-from NetLogoDOE.src.gui.custom_components import title, metric3_radio_buttons, question_mark_button
+from NetLogoDOE.src.gui.custom_components import title, metric3_radio_buttons, question_mark_button, explanation
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
@@ -11,10 +11,10 @@ class DistributionplotScreen:
 
     def __init__(self):
         self.layout = [[title('Distribution plot')],
-                       [sg.Text('Graph Title:'), sg.Input('', key='distplot_title_input')],
+                       [sg.Text('Graph Title:'), sg.Input(key='distplot_title_input')],
                        [question_mark_button('distplot_reporter_help_button'), sg.Text('Reporters to plot:')],
                        [sg.Multiline('', key='distplot_reporter_input')],
-                       [sg.Text('Only input a single reporter on each line')],
+                       [explanation('If this field is left empty, all reporters will be plotted.')],
                        [question_mark_button('distplot_3metric_help_button'), sg.Text('Metric:')],
                        metric3_radio_buttons('distplot'),
                        [question_mark_button('distplot_indicators_help_button'), sg.Text('Distribution indicators:')],
@@ -28,25 +28,28 @@ class DistributionplotScreen:
     def check_events(self, event, values, window):
         if event == 'standard_write_results_event':
             self.results = values['standard_write_results_event']
+
         if event == 'distplot_generate_button':
-            valid, error_message = self.validate_user_input(values)
-            if not valid:
-                window.write_event_value('show_error_window', error_message)
-                return
-            self.generate_histogram(values, window)
+            self.generate_distributionplot(values, window)
         if event == 'distplot_back_button':
             window['distplot_panel'].update(visible=False)
             window['standard_result_panel'].update(visible=True)
 
         # Help events
         if event == 'distplot_reporter_help_button':
-            show_help_window(help_text['standard_plot_reporters'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_plot_reporters'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'distplot_3metric_help_button':
-            show_help_window(help_text['3_metric'], location=window.CurrentLocation())
+            show_help_window(help_text['3_metric'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'distplot_indicators_help_button':
-            show_help_window(help_text['distributionplot_indicators'], location=window.CurrentLocation())
+            show_help_window(help_text['distributionplot_indicators'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
 
-    def generate_histogram(self, values, window):
+    def generate_distributionplot(self, values, window):
         reporters = self.format_reporters(values)
         metric = self.get_selected_radio_button(values)
         merged_data = merge_data(self.results[1], metric)
@@ -80,13 +83,8 @@ class DistributionplotScreen:
         return 1
 
     def format_reporters(self, values):
+        if values['distplot_reporter_input'] == '\n':
+            return list(self.results[1].keys())
         reporters = list(filter(('').__ne__, values['distplot_reporter_input'].split('\n')))
         reporters = list(map(lambda x: x.strip(), reporters))
         return reporters
-
-    def validate_user_input(self, values):
-        if values['distplot_reporter_input'] == '\n':
-            return False, 'Error in input: One or more fields are empty. ' \
-                          'Please make sure all options are filled out.'
-
-        return True, ''

@@ -72,8 +72,10 @@ class Gui:
                        sg.Column(layout_standard, key="standard_panel", visible=False),
                        sg.Column(layout_import, key="import_panel", visible=False, element_justification='center'),
                        sg.Column(layout_run, key='run_panel', visible=False),
-                       sg.Column(layout_experiment_result, key="experiment_result_panel", visible=False, element_justification='center'),
-                       sg.Column(layout_standard_result, key="standard_result_panel", visible=False, element_justification='center'),
+                       sg.Column(layout_experiment_result, key="experiment_result_panel", visible=False,
+                                 element_justification='center'),
+                       sg.Column(layout_standard_result, key="standard_result_panel", visible=False,
+                                 element_justification='center'),
                        sg.Column(layout_standard_configtable, key="standard_configtable_panel", visible=False),
                        sg.Column(layout_experiment_configtable, key="experiment_configtable_panel", visible=False),
                        sg.Column(layout_parallel_coordinates, key="parcoords_panel", visible=False),
@@ -96,7 +98,10 @@ class Gui:
                 break
 
             if event == 'show_error_window':
-                show_error_window(values['show_error_window'])
+                window.read(timeout=0.01)
+                show_error_window(values['show_error_window'],
+                                  location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                            window.CurrentLocation()[1] + 100))
 
             self.main_screen.check_events(event, values, window)
             self.experiment_screen.check_events(event, values, window)
@@ -116,5 +121,5 @@ class Gui:
             self.violinplot_screen.check_events(event, values, window)
             self.histogram_screen.check_events(event, values, window)
             self.distplot_screen.check_events(event, values, window)
-            
+
         window.close()

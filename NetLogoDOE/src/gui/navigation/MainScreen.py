@@ -11,6 +11,10 @@ class MainScreen:
         button_size = (25, 1)
         button_pad = ((5, 0), (20, 0))
         self.layout = [[header('NetLogoDOE')],
+                       [sg.Text('NetLogoDOE is a GUI that provides easy design, execution and analysis of NetLogo '
+                                'experiments. All functionalities can be accessed from this GUI, so no programming '
+                                'is needed. If anything is unclear, click the "?" buttons for more information.',
+                                size=(50, 5), pad=(0, 0))],
                        [sg.Button('Experimental runs', key='main_experiment_button', size=button_size, pad=button_pad),
                         question_mark_button('main_experiment_help_button', padding=button_pad)],
                        [sg.Button('Standard runs', key='main_standard_button', size=button_size, pad=button_pad),
@@ -32,8 +36,14 @@ class MainScreen:
 
         # Help events
         if event == 'main_experiment_help_button':
-            show_help_window(help_text['experimental_runs'], location=window.CurrentLocation())
+            show_help_window(help_text['experimental_runs'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'main_standard_help_button':
-            show_help_window(help_text['standard_runs'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_runs'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'main_import_help_button':
-            show_help_window(help_text['import_results'], location=window.CurrentLocation())
+            show_help_window(help_text['import_results'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))

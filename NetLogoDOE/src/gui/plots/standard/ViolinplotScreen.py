@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import plotly.graph_objects as go
 
-from NetLogoDOE.src.gui.custom_components import title, question_mark_button
+from NetLogoDOE.src.gui.custom_components import title, question_mark_button, explanation
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
@@ -11,10 +11,10 @@ class ViolinplotScreen:
 
     def __init__(self):
         self.layout = [[title('Violin plot')],
-                       [sg.Text('Graph Title: '), sg.Input('', key='violinplot_title_input')],
+                       [sg.Text('Graph Title: '), sg.Input(key='violinplot_title_input')],
                        [question_mark_button('violinplot_reporter_help_button'), sg.Text('Reporters to plot:')],
-                       [sg.Multiline('count sheep', key='violinplot_reporter_input')],
-                       [sg.Text('Only input a single reporter on each line')],
+                       [sg.Multiline('', key='violinplot_reporter_input')],
+                       [explanation('If this field is left empty, all reporters will be plotted.')],
                        [sg.Button('Generate', key='violinplot_generate_button')],
                        [sg.Button('Back', key='violinplot_back_button')]]
         self.results = None
@@ -23,10 +23,6 @@ class ViolinplotScreen:
         if event == 'standard_write_results_event':
             self.results = values['standard_write_results_event']
         if event == 'violinplot_generate_button':
-            valid, error_message = self.validate_user_input(values)
-            if not valid:
-                window.write_event_value('show_error_window', error_message)
-                return
             self.generate_violinplot(values, window)
         if event == 'violinplot_back_button':
             window['violinplot_panel'].update(visible=False)
@@ -34,7 +30,9 @@ class ViolinplotScreen:
 
         # Help events
         if event == 'violinplot_reporter_help_button':
-            show_help_window(help_text['standard_plot_reporters'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_plot_reporters'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
 
     def generate_violinplot(self, values, window):
         reporters = self.format_reporters(values)
@@ -57,13 +55,8 @@ class ViolinplotScreen:
         fig.show()
 
     def format_reporters(self, values):
+        if values['violinplot_reporter_input'] == '\n':
+            return list(self.results[1].keys())
         reporters = list(filter(('').__ne__, values['violinplot_reporter_input'].split('\n')))
         reporters = list(map(lambda x: x.strip(), reporters))
         return reporters
-
-    def validate_user_input(self, values):
-        if values['violinplot_reporter_input'] == '\n':
-            return False, 'Error in input: One or more fields are empty. ' \
-                          'Please make sure all options are filled out.'
-
-        return True, ''

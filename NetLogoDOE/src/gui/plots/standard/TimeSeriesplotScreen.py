@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.colors import hex_to_rgb
 
-from NetLogoDOE.src.gui.custom_components import title, question_mark_button, metric3_radio_buttons
+from NetLogoDOE.src.gui.custom_components import title, question_mark_button, metric3_radio_buttons, explanation
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.util.data_processing.merge_standard_data import merge_data
@@ -17,7 +17,7 @@ class TimeSeriesplotScreen:
                        [sg.Text('Graph Title'), sg.Input(key='timeseries_title_input')],
                        [question_mark_button('timeseries_reporter_help_button'), sg.Text('Reporters to plot:')],
                        [sg.Multiline('', key='timeseries_reporter_input')],
-                       [sg.Text('Only input a single reporter on each line')],
+                       [explanation('If this field is left empty, all reporters will be plotted.')],
                        [question_mark_button('timeseries_3metric_help_button'), sg.Text('Metric:')],
                        metric3_radio_buttons('timeseries'),
                        [self.collapse([
@@ -47,9 +47,13 @@ class TimeSeriesplotScreen:
 
         # Help events
         if event == 'timeseries_reporter_help_button':
-            show_help_window(help_text['standard_plot_reporters'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_plot_reporters'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'timeseries_3metric_help_button':
-            show_help_window(help_text['3_metric'], location=window.CurrentLocation())
+            show_help_window(help_text['3_metric'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
 
     def collapse(self, layout, key):
         return sg.pin(sg.Column(layout, key=key, visible=False))
@@ -82,7 +86,7 @@ class TimeSeriesplotScreen:
 
     def generate_variance_figure(self, merged_data, variance, reporters):
         fig = go.Figure()
-        for reporter in reporters:
+        for i, reporter in enumerate(reporters):
             zipped = list(zip(*self.results[1][reporter]))
             zipped_std = list(map(lambda x: np.std(x), zipped))
 
@@ -102,7 +106,7 @@ class TimeSeriesplotScreen:
                                          line=dict(width=0), hoverinfo='skip'))
                 fig.add_trace(go.Scatter(y=minus_std, showlegend=False,
                                          fill='tonexty',
-                                         fillcolor=f"rgba{(*hex_to_rgb(px.colors.qualitative.Plotly[0]), 0.2)}",
+                                         fillcolor=f"rgba{(*hex_to_rgb(px.colors.qualitative.Plotly[i]), 0.2)}",
                                          line=dict(width=0), hoverinfo='skip'))
 
         return fig
@@ -114,13 +118,8 @@ class TimeSeriesplotScreen:
         return 1
 
     def format_reporters(self, values):
+        if values['timeseries_reporter_input'] == '\n':
+            return list(self.results[1].keys())
         reporters = list(filter(('').__ne__, values['timeseries_reporter_input'].split('\n')))
         reporters = list(map(lambda x: x.strip(), reporters))
         return reporters
-
-    def validate_user_input(self, values):
-        if values['timeseries_reporter_input'] == '\n':
-            return False, 'Error in input: One or more fields are empty. ' \
-                          'Please make sure all options are filled out.'
-
-        return True, ''

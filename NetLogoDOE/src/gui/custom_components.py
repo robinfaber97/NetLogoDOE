@@ -9,8 +9,16 @@ def title(text):
     return sg.Text(text, font=('', 20), auto_size_text=True)
 
 
+def number_input(key, text=''):
+    return sg.Input(text, key=key, size=(5, 1))
+
+
+def text_input(key, text=''):
+    return sg.Input(text, key=key, size=(25, 1))
+
+
 def explanation(text):
-    return sg.Text(text, font=('', 10), pad=(0, 0))
+    return sg.Text(text, font=('', 8), pad=(0, 0))
 
 
 def configuration_parameter_text(text):

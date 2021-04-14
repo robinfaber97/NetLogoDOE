@@ -37,23 +37,31 @@ help_text = {
                    'experiment another time so you don\'t need to fill out everything manually again.',
 
     # Experiment screen
-    'experiment_variables': 'Specify the bounds within which the parameter configurations will be generated. Every '
-                            'line should only have a single parameter with its lower and upper bound.\n\n'
-                            'Examples:\n'
-                            'sheep-reproduce 4 6\n'
-                            'wolf-reproduce 5 7',
+    'experiment_parameters': 'Specify the values that the model parameters will be set to before the simulation. Every '
+                             'line should contain a single parameter with its value. This value can be defined by '
+                             'giving a lower and upper bound where the experiment values will be sampled between in '
+                             '(with brackets). If you want a parameter to have the same value for all experiments, '
+                             'simply input the name and the value behind it (without brackets). Model specific values '
+                             'need to be in double quotes as shown below, NetLogo primitives like numbers and boolean '
+                             'values do not need quotes.\n\n'
+                             'Examples:\n'
+                             '[sheep-reproduce 4 6]\n'
+                             '[wolf-reproduce 5 7]\n'
+                             'initial-number-sheep 75\n'
+                             'model-version "sheep-wolves-grass"\n'
+                             'show-energy? true',
     'experiment_sampling': 'Specify the sampling method that will be used to generate parameter configurations. The '
                            'default is Latin hypercube sampling.\n\n'
                            'Monte Carlo: The parameter values are sampled completely random and independently within '
-                           'the parameter bounds\n'
+                           'the parameter bounds\n\n'
                            'Latin Hypercube: The parameter values are sampled near-random, but depended on each other '
-                           'to obtain a good spread.\n'
+                           'to obtain a good spread.\n\n'
                            'Full factorial: Every possible configuration between the parameter bounds will be sampled.'
-                           ' This method ignores the input for the number of scenarios.\n'
+                           ' This method ignores the input for the number of scenarios.\n\n'
                            'Saltelli: The parameter values are sampled using Saltelli\'s sampling scheme. The number '
                            'of scenarios here needs to adhere to specific conditions, so it may not be the exact '
-                           'number that was specified.\n'
-                           'Sobol: The parameter values are sampled using Sobol\'s sampling scheme.\n',
+                           'number that was specified.\n\n'
+                           'Sobol: The parameter values are sampled using Sobol\'s sampling scheme.',
     'experiment_scenarios': 'Specify the number of scenarios that will be run for this configuration. Every scenario '
                             'consists of a different set of parameter values that fall within the bounds specified '
                             'above. These parameter values are generated with the selected sampling method.',
@@ -61,10 +69,14 @@ help_text = {
 
     # Standard screen
     'standard_variables': 'Specify the values that the model parameters will be set to before the simulation. '
-                          'Every line should only have a single parameter with its value.\n\n'
+                          'Every line should only have a single parameter with its value. Model specific values need '
+                          'to be in double quotes as shown below, NetLogo primitives like numbers and boolean values '
+                          'do not need quotes.\n\n'
                           'Examples:\n'
                           'sheep-reproduce 5\n'
-                          'wolf-reproduce 6',
+                          'wolf-reproduce 6\n'
+                          'model-version "sheep-wolves-grass"\n'
+                          'show-energy? true',
     'standard_repetitions': 'Specify the number of repetitions that will be run for this configuration.',
 
     # Experiment/Standard plots

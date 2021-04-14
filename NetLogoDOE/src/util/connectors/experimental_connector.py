@@ -4,17 +4,16 @@ import pyNetLogo as pnl
 from pyNetLogo.core import NetLogoException
 
 
-def run_experiments(child_conn, values, problem, param_values, netlogo_version, netlogo_home):
+def run_experiments(child_conn, values, problem, param_samples, param_values, netlogo_version, netlogo_home):
     outcomes = {}
     repetitions = int(values['experiment_repetition_input'])
     ticks = int(values['experiment_tick_input'])
-    steps = 100 / (len(param_values) * repetitions)
+    steps = 100 / (len(param_samples) * repetitions)
     progress_bar = 1
 
     reporters = split_user_input(values['experiment_reporter_input'])
     for reporter in reporters:
         outcomes[reporter] = []
-
 
     try:
         netlogo = pnl.NetLogoLink(gui=False, netlogo_version=netlogo_version, netlogo_home=netlogo_home)
@@ -31,18 +30,27 @@ def run_experiments(child_conn, values, problem, param_values, netlogo_version, 
                                             ' correct and points to a valid .nlogo file.'))
         return
 
-    for scenario in range(len(param_values)):
+    for scenario in range(len(param_samples)):
         for i, name in enumerate(problem['names']):
             if name == 'random-seed':
-                netlogo.command(f'random-seed {param_values[scenario, i]}')
+                netlogo.command(f'random-seed {param_samples[scenario, i]}')
             else:
                 try:
-                    netlogo.command(f'set {name} {param_values[scenario, i]}')
+                    netlogo.command(f'set {name} {param_samples[scenario, i]}')
                 except NetLogoException:
                     child_conn.send(get_failure_message('Error in input: Invalid variable bounds input. Please '
                                                         'make sure all variable names and their bounds are correct.'))
                     netlogo.kill_workspace()
                     return
+
+        for set_command in param_values:
+            try:
+                netlogo.command(f'set {set_command}')
+            except NetLogoException:
+                child_conn.send(get_failure_message('Error in input: Invalid variable value input. Please '
+                                                    'make sure all variable names and their values are correct.'))
+                netlogo.kill_workspace()
+                return
 
         run_list = {}
         for reporter in reporters:
@@ -81,7 +89,7 @@ def run_experiments(child_conn, values, problem, param_values, netlogo_version, 
 
     netlogo.kill_workspace()
 
-    results = (param_values, outcomes)
+    results = (param_samples, outcomes)
     child_conn.send({'Progress': steps, 'Results': results})
 
 
@@ -90,6 +98,7 @@ def split_user_input(input):
     rows = list(filter(('').__ne__, rows))
     mapped_rows = list(map(lambda x: x.strip(), rows))
     return mapped_rows
+
 
 def get_failure_message(msg):
     return {'Progress': 'Failure', 'Results': msg}

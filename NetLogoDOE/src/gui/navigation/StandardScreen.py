@@ -2,7 +2,7 @@ import ast
 
 import PySimpleGUI as sg
 
-from NetLogoDOE.src.gui.custom_components import title, question_mark_button
+from NetLogoDOE.src.gui.custom_components import title, question_mark_button, number_input, text_input
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_config_dictionary
@@ -11,13 +11,12 @@ from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_conf
 class StandardScreen:
 
     def __init__(self):
-        question_mark_padding = ((0, 0), (0, 0))
         self.layout = [[title('Standard runs')],
-                       [sg.Text('Configuration name'), sg.Input(key='standard_name_input'),
+                       [sg.Text('Configuration name'), text_input(key='standard_name_input'),
                         sg.Input(key='standard_dummy_import', enable_events=True, visible=False, size=(0, 0)),
                         sg.FileBrowse('Import Run Configuration', file_types=[("Text Files", "*.txt")],
                                       target='standard_dummy_import', key='standard_import_button')],
-                       [sg.Text('Model file name'), sg.Input(key='standard_model_input'),
+                       [sg.Text('Model file name'), text_input(key='standard_model_input'),
                         sg.Input(key='standard_model_dummy_import', enable_events=True, visible=False, size=(0, 0)),
                         sg.FileBrowse('Import model', file_types=[("NetLogo Files", "*.nlogo")],
                                       target='standard_model_dummy_import', key='standard_model_import_button')],
@@ -27,10 +26,10 @@ class StandardScreen:
                        [sg.Text('Explain the format: variable-name variable-value')],
                        [question_mark_button('standard_repetition_help_button'),
                         sg.Text('Number of repetitions:'),
-                        sg.Input('10', key='standard_repetition_input')],
+                        number_input(key='standard_repetition_input', text='10')],
                        [question_mark_button('standard_tick_help_button'),
                         sg.Text('Maximum number of ticks per run:'),
-                        sg.Input('100', key='standard_tick_input')],
+                        number_input(key='standard_tick_input', text='100')],
                        [question_mark_button('standard_reporter_help_button'),
                         sg.Text('Measure runs using these reporters:')],
                        [sg.Multiline(key='standard_reporter_input')],
@@ -40,8 +39,8 @@ class StandardScreen:
                        [sg.Multiline('setup', key='standard_setup_input')],
                        [question_mark_button('standard_process_help_button'),
                         sg.Text('Number of parallel executors:'),
-                        sg.Input('2', key='standard_process_input')],
-                       [sg.Button('Run', key="standard_run_button")],
+                        number_input(key='standard_process_input', text='2')],
+                       [sg.Button('     Run     ', key="standard_run_button")],
                        [sg.Button('Back', key="standard_back_button"),
                         sg.Input(key='standard_dummy_export', enable_events=True, visible=False, size=(0, 0)),
                         sg.SaveAs('Save Run Configuration', file_types=[("Text Files", "*.txt")],
@@ -71,17 +70,29 @@ class StandardScreen:
 
         # Help events
         if event == 'standard_value_help_button':
-            show_help_window(help_text['standard_variables'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_variables'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'standard_repetition_help_button':
-            show_help_window(help_text['standard_repetitions'], location=window.CurrentLocation())
+            show_help_window(help_text['standard_repetitions'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'standard_tick_help_button':
-            show_help_window(help_text['run_ticks'], location=window.CurrentLocation())
+            show_help_window(help_text['run_ticks'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'standard_reporter_help_button':
-            show_help_window(help_text['run_reporters'], location=window.CurrentLocation())
+            show_help_window(help_text['run_reporters'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'standard_setup_help_button':
-            show_help_window(help_text['run_setup'], location=window.CurrentLocation())
+            show_help_window(help_text['run_setup'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
         if event == 'standard_process_help_button':
-            show_help_window(help_text['run_processes'], location=window.CurrentLocation())
+            show_help_window(help_text['run_processes'],
+                             location=(window.CurrentLocation()[0] - ((434 - window.size[0]) / 2),
+                                       window.CurrentLocation()[1] + 100))
 
     def import_run(self, window, file_path):
         f = open(file_path, "r")
@@ -92,7 +103,7 @@ class StandardScreen:
             run_dict = ast.literal_eval(run_string)
             window['standard_name_input'].update(run_dict['Configuration Name'])
             window['standard_model_input'].update(run_dict['Model file'])
-            window['standard_value_input'].update('\n'.join(run_dict['Variable values']))
+            window['standard_value_input'].update('\n'.join(run_dict['Parameter values']))
             window['standard_repetition_input'].update(run_dict['Repetitions'])
             window['standard_tick_input'].update(run_dict['Ticks per run'])
             window['standard_reporter_input'].update('\n'.join(run_dict['NetLogo reporters']))
