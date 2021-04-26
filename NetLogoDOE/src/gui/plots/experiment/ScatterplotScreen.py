@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import statsmodels.api as sm
 from plotly.subplots import make_subplots
 
-from NetLogoDOE.src.gui.custom_components import title, metric4_radio_buttons, question_mark_button
+from NetLogoDOE.src.gui.custom_components import title, metric4_radio_buttons, question_mark_button, explanation
 from NetLogoDOE.src.gui.custom_windows import show_help_window
 from NetLogoDOE.src.gui.help_dictionary import help_text
 from NetLogoDOE.src.util.data_processing.merge_experiment_data import merge_data
@@ -18,8 +18,8 @@ class ScatterplotScreen:
     def __init__(self):
         self.layout = [[title('Scatterplot')],
                        [question_mark_button('scatterplot_variable_help_button'), sg.Text('Variable combinations to plot:')],
-                       [sg.Multiline('"sheep-reproduce" "count sheep"', key='scatterplot_variable_input')],
-                       [sg.Text('Explain the format: "x-variable" "y-variable"')],
+                       [sg.Multiline('', key='scatterplot_variable_input')],
+                       [explanation('Use the ? button for explanation on how to define the combinations')],
                        [question_mark_button('scatterplot_4metric_help_button'), sg.Text('Metric:')],
                        metric4_radio_buttons('scatter'),
                        [sg.Button('Generate', key='scatterplot_generate_button')],

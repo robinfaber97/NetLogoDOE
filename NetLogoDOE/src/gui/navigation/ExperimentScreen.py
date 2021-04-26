@@ -13,7 +13,7 @@ from NetLogoDOE.src.util.config_dicts.get_experiment_dict import get_experiment_
 class ExperimentScreen:
 
     def __init__(self):
-        self.layout = [[title('Experimental runs')],
+        self.layout = [[title('Parameter space search')],
                        [sg.Text('Experiment Name'), text_input(key='experiment_name_input'),
                         sg.Input(key='experiment_dummy_import', enable_events=True, visible=False, size=(0, 0)),
                         sg.FileBrowse('Import experiment', file_types=[("Text Files", "*.txt")],
@@ -60,13 +60,22 @@ class ExperimentScreen:
                 window.write_event_value('show_error_window', error_message)
                 return
 
-            window['experiment_panel'].update(visible=False)
-            window['run_panel'].update(visible=True)
-            window.read(0.01)
-
             problem = self.construct_problem(values)
+            if problem['num_vars'] == 0:
+                window.write_event_value('show_error_window', 'Please vary at least 1 parameter with parameter bounds. '
+                                                              'If you only want static parameter values, choose the '
+                                                              'standard runs option on the main menu. If this is an '
+                                                              'error, make sure to double check the format with the '
+                                                              'help button.')
+                return
+
             param_samples = self.get_param_samples(problem, values)
             param_values = self.get_param_values(values)
+
+            window['experiment_panel'].update(visible=False)
+            window['run_panel'].update(visible=True)
+            window.read(timeout=0.01)
+
             window.write_event_value('experiment_run_signal', (problem, param_samples, param_values))
 
         if event == 'experiment_dummy_import' and not (values['experiment_dummy_import'] == ''):
@@ -142,7 +151,7 @@ class ExperimentScreen:
                     param_values = LatinHypercubeSampler().sample(problem, scenarios)
                 elif key == 'sample_ff':
                     param_values = FullFactorialSampler().sample(problem, scenarios)
-                elif key == 'sample_fast':
+                elif key == 'sample_saltelli':
                     param_values = SaltelliSampler().sample(problem, scenarios)
                 elif key == 'sample_ss':
                     param_values = SobolSampler().sample(problem, scenarios)

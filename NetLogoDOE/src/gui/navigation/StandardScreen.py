@@ -11,10 +11,10 @@ from NetLogoDOE.src.util.config_dicts.get_standard_dict import get_standard_conf
 class StandardScreen:
 
     def __init__(self):
-        self.layout = [[title('Standard runs')],
-                       [sg.Text('Configuration name'), text_input(key='standard_name_input'),
+        self.layout = [[title('Reporter value analysis')],
+                       [sg.Text('Experiment name'), text_input(key='standard_name_input'),
                         sg.Input(key='standard_dummy_import', enable_events=True, visible=False, size=(0, 0)),
-                        sg.FileBrowse('Import Run Configuration', file_types=[("Text Files", "*.txt")],
+                        sg.FileBrowse('Import Experiment', file_types=[("Text Files", "*.txt")],
                                       target='standard_dummy_import', key='standard_import_button')],
                        [sg.Text('Model file name'), text_input(key='standard_model_input'),
                         sg.Input(key='standard_model_dummy_import', enable_events=True, visible=False, size=(0, 0)),
@@ -23,7 +23,6 @@ class StandardScreen:
                        [question_mark_button('standard_value_help_button'),
                         sg.Text('Set variables as follows:')],
                        [sg.Multiline(key='standard_value_input')],
-                       [sg.Text('Explain the format: variable-name variable-value')],
                        [question_mark_button('standard_repetition_help_button'),
                         sg.Text('Number of repetitions:'),
                         number_input(key='standard_repetition_input', text='10')],
@@ -43,7 +42,7 @@ class StandardScreen:
                        [sg.Button('     Run     ', key="standard_run_button")],
                        [sg.Button('Back', key="standard_back_button"),
                         sg.Input(key='standard_dummy_export', enable_events=True, visible=False, size=(0, 0)),
-                        sg.SaveAs('Save Run Configuration', file_types=[("Text Files", "*.txt")],
+                        sg.SaveAs('Save Experiment', file_types=[("Text Files", "*.txt")],
                                   target='standard_dummy_export', key="standard_save_button")]]
 
     def check_events(self, event, values, window):

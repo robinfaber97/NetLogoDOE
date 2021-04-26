@@ -24,7 +24,7 @@ class MonteCarloSampler(AbstractSampler):
     def sample(self, problem, samples):
         parameter_amount = problem['num_vars']
         mcs = np.random.rand(samples, parameter_amount)
-        self.normalize(problem, mcs)
+        mcs = self.normalize(problem, mcs)
         return mcs
 
     def normalize(self, problem, sampled_data):

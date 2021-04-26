@@ -8,9 +8,9 @@ from NetLogoDOE.src.gui.help_dictionary import help_text
 class StandardResultsScreen:
 
     def __init__(self):
-        button_size = (25, 1)
+        button_size = (30, 1)
         button_pad = ((5, 5), (20, 5))
-        self.layout = [[title("Standard results")],
+        self.layout = [[title("Reporter value analysis results")],
                        [sg.Frame(title='Plots', border_width=1, relief='solid', layout=
                        [[sg.Button('Timeseries', key='standard_results_timeseries_button',
                                   size=button_size, pad=button_pad),
@@ -27,7 +27,7 @@ class StandardResultsScreen:
                        [sg.Button('Distribution plot', key='standard_results_distplot_button',
                                   size=button_size, pad=button_pad),
                         question_mark_button('standard_results_distplot_help_button', padding=button_pad)]])],
-                       [sg.Button('Standard Configuration Information', key='standard_results_configtable_button',
+                       [sg.Button('Experiment Configuration Information', key='standard_results_configtable_button',
                                   size=button_size, pad=button_pad),
                         question_mark_button('standard_results_configtable_help_button', padding=button_pad)],
                        [sg.Input(key='standard_results_dummy_export', enable_events=True, visible=False, size=(0, 0)),

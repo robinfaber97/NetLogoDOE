@@ -15,7 +15,6 @@ def get_layout(text):
 
 
 def show_error_window(text, location=(600, 100)):
-    print(location)
     layout = get_layout(text)
     error_window = sg.Window('Error', layout=layout, element_justification='c', finalize=True,
                             location=(location[0], location[1]))

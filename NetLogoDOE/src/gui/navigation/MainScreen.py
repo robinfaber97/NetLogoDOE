@@ -15,9 +15,9 @@ class MainScreen:
                                 'experiments. All functionalities can be accessed from this GUI, so no programming '
                                 'is needed. If anything is unclear, click the "?" buttons for more information.',
                                 size=(50, 5), pad=(0, 0))],
-                       [sg.Button('Experimental runs', key='main_experiment_button', size=button_size, pad=button_pad),
+                       [sg.Button('Parameter space search', key='main_experiment_button', size=button_size, pad=button_pad),
                         question_mark_button('main_experiment_help_button', padding=button_pad)],
-                       [sg.Button('Standard runs', key='main_standard_button', size=button_size, pad=button_pad),
+                       [sg.Button('Reporter value analysis', key='main_standard_button', size=button_size, pad=button_pad),
                         question_mark_button('main_standard_help_button', padding=button_pad)],
                        [sg.Button('Import results', key='main_import_button', size=button_size, pad=button_pad),
                         question_mark_button('main_import_help_button', padding=button_pad)],

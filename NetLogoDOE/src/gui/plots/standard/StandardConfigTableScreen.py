@@ -7,7 +7,7 @@ from NetLogoDOE.src.gui.custom_components import title, configuration_parameter_
 class StandardConfigTableScreen:
 
     def __init__(self):
-        self.layout = [[title('Standard Configuration')],
+        self.layout = [[title('Experiment Configuration')],
                        [configuration_parameter_text('Configuration Name:'),
                         configuration_value_text('', 'standard_configtable_configuration_text')],
                        [configuration_horizontal_line()],

@@ -24,8 +24,17 @@ class RunScreen:
             problem = values['experiment_run_signal'][0]
             experiments = values['experiment_run_signal'][1]
             exp_per_process = [len(experiments) // process_amount + (1 if x < len(experiments) % process_amount else 0)
-                                for x in range(process_amount)]
-            frames = [experiments[i:i + exp_per_process[i]] for i in range(0, len(exp_per_process))]
+                               for x in range(process_amount)]
+
+            frames = []
+            curr = 0
+            for i in range(len(exp_per_process)):
+                if i == 0:
+                    frames.append(experiments[i:exp_per_process[i]])
+                else:
+                    frames.append(experiments[curr:curr+exp_per_process[i]])
+                curr += exp_per_process[i]
+
             static_parameter_values = values['experiment_run_signal'][2]
 
             for i in range(process_amount):
@@ -55,7 +64,7 @@ class RunScreen:
 
             data = self.merge_experiment_data(results, problem['names'])
             config = self.get_experiment_config(values)
-            window.write_event_value('experiment_write_results_event', data + (config, ))
+            window.write_event_value('experiment_write_results_event', data + (config,))
             window['experiment_result_panel'].update(visible=True)
             window['run_panel'].update(visible=False)
             window['run_progressbar'].update_bar(0)

@@ -12,7 +12,7 @@ class HeatmapScreen:
     def __init__(self):
         self.layout = [[title('Heatmap')],
                        [sg.Text('Graph Title:'), sg.Input(key='heatmap_title_input')],
-                       [sg.Text('Color scale:'), sg.Input('viridis', key='heatmap_color_input')],
+                       [sg.Text('Color scale:'), sg.Input('blues', key='heatmap_color_input')],
                        [question_mark_button('heatmap_4metric_help_button'), sg.Text('Metric:')],
                        metric4_radio_buttons('heatmap'),
                        [sg.Button('Generate', key='heatmap_generate_button')],

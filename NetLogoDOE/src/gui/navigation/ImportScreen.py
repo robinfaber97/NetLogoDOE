@@ -11,25 +11,25 @@ from NetLogoDOE.src.gui.help_dictionary import help_text
 class ImportScreen:
 
     def __init__(self):
-        button_size = (25, 1)
+        button_size = (35, 1)
         button_pad = ((5, 0), (20, 0))
         self.layout = [[title('Import results')],
                        [sg.Input(key='import_dummy_experiment_results', enable_events=True, visible=False, size=(0, 0)),
-                        sg.FileBrowse('Import experiment results', file_types=[("Text Files", "*.txt")],
+                        sg.FileBrowse('Parameter Space Search results', file_types=[("Text Files", "*.txt")],
                                       target='import_dummy_experiment_results',
                                       key='import_experiment_results_button', size=button_size, pad=button_pad),
                         question_mark_button('import_experiment_results_help_button', padding=button_pad)],
                        [sg.Input(key='import_dummy_standard_results', enable_events=True, visible=False, size=(0, 0)),
-                        sg.FileBrowse('Import standard results', file_types=[("Text Files", "*.txt")],
+                        sg.FileBrowse('Reporter Value Analysis results', file_types=[("Text Files", "*.txt")],
                                       target='import_dummy_standard_results',
                                       key='import_standard_results_button', size=button_size, pad=button_pad),
                         question_mark_button('import_standard_results_help_button', padding=button_pad)],
-                       [sg.Input(key='import_dummy_behaviorspace_results', enable_events=True, visible=False,
-                                 size=(0, 0)),
-                        sg.FileBrowse('Import BehaviorSpace results', file_types=[("Text Files", "*.txt")],
-                                      target='import_dummy_behaviorspace_results',
-                                      key='import_behaviorspace_results_button', size=button_size, pad=button_pad),
-                        question_mark_button('import_behaviorspace_results_help_button', padding=button_pad)],
+                       #[sg.Input(key='import_dummy_behaviorspace_results', enable_events=True, visible=False,
+                       #          size=(0, 0)),
+                       # sg.FileBrowse('BehaviorSpace results', file_types=[("Text Files", "*.txt")],
+                       #               target='import_dummy_behaviorspace_results',
+                       #               key='import_behaviorspace_results_button', size=button_size, pad=button_pad),
+                       # question_mark_button('import_behaviorspace_results_help_button', padding=button_pad)],
                        [sg.Button('Back', key='import_back_button', pad=button_pad)]
                        ]
 

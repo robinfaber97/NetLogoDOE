@@ -10,7 +10,7 @@ class ExperimentResultsScreen:
     def __init__(self):
         button_size = (30, 1)
         button_pad = ((5, 5), (20, 5))
-        self.layout = [[title("Experiment results")],
+        self.layout = [[title("Parameter space search results")],
                        [sg.Frame(title='Plots', border_width=1, relief='solid', layout=[
                            [sg.Button('Parallel Coordinates', key='experiment_results_parcoords_button',
                                       size=button_size, pad=button_pad),
